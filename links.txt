@@ -1,0 +1,13 @@
+Read
+Facebook Reader - http://techcrunch.com/2013/06/24/facebook-reader-details/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+Techcrunch+%28TechCrunch%29
+Reader Rant - http://www.jwz.org/blog/2013/06/google-reader-apocalypse-extremely-fucking-nigh/
+
+Example
+ESPN RSS Overview - http://sports.espn.go.com/espn/news/story?page=rssinfo
+
+FB Android SDK
+Android FB SDK - https://developers.facebook.com/docs/getting-started/facebook-sdk-for-android/3.0/
+Android FB SDK login example - https://developers.facebook.com/docs/howtos/androidsdk/3.0/login-with-facebook/
+
+Java Twitter Library
+http://twitter4j.org/en/index.html
