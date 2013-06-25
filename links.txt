@@ -16,3 +16,4 @@ Class resources
 http://student.meet.mit.edu/curriculum/summer-curriculum/summeryears/summer-2013/y3/
 
 MJ says hello
+Rotem is learning git
