@@ -11,3 +11,6 @@ Android FB SDK login example - https://developers.facebook.com/docs/howtos/andro
 
 Java Twitter Library
 http://twitter4j.org/en/index.html
+
+Class resources
+http://student.meet.mit.edu/curriculum/summer-curriculum/summeryears/summer-2013/y3/
