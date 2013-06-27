@@ -6,9 +6,10 @@
     android:orientation="vertical">
 
     <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
+    android:id="@+id/authButton"
+    android:src="@drawable/ic_launcher"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_margin="30dp" />
 
 </LinearLayout>
