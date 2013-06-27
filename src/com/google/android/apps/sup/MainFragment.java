@@ -1,6 +1,5 @@
 package com.google.android.apps.sup;
 
-import java.util.Arrays;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,10 +34,11 @@ public class MainFragment extends Fragment {
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 		System.out.println("logged in!!! yay!!!");
 	    if (state.isOpened()) {
-	    	Intent intent = new Intent();
-	    	intent.setClass(getActivity(), NewsActivity.class);
-	    	GlobalInfo.session = session;
-	    	startActivity(intent);
+//	    	Intent intent = new Intent();
+//	    	intent.setClass(getActivity(), NewsActivity.class);
+//	    	GlobalInfo.session = session;
+	    	Log.i(TAG, "Logged in...");
+//	    	startActivity(intent);
 	    } else if (state.isClosed()) {
 	        Log.i(TAG, "Logged out...");
 	    }
