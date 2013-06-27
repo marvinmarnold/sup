@@ -1,4 +1,3 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,10 +5,11 @@
     android:orientation="vertical">
 
     <com.facebook.widget.LoginButton
-    android:id="@+id/authButton"
-    android:src="@drawable/ic_launcher"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" 
-    android:layout_margin="30dp" />
+        android:id="@+id/authButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
 
 </LinearLayout>
