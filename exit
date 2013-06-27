@@ -1,0 +1,60 @@
+commit 67eb6e669af1ebb8c7d74ee5bd377940d2ca34f2
+Author: Noam Ben-Pazi <noam1209@cs.huji.ac.il>
+Date:   Wed Jun 26 19:01:48 2013 +0300
+
+    need to finish "parse" method, update time field for messege type
+
+commit 7d9f4f17d3309460d3b7585e36ad642266fb0b96
+Author: Mohannad Jamal <mohannadj11@cs.huji.ac.il>
+Date:   Wed Jun 26 15:40:20 2013 +0300
+
+    Modified "gitignore" and added debug.keystore for everyone
+
+commit 02be8bb6541beca5ae5525cc9ff3da423b2f4b87
+Merge: 9842b50 4529bf0
+Author: Asaf Vaknin <asaf11@cs.huji.ac.il>
+Date:   Tue Jun 25 16:34:41 2013 +0300
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 9842b503f028ccd2623d72a53d5fa504eb5c4f73
+Author: Asaf Vaknin <asaf11@cs.huji.ac.il>
+Date:   Tue Jun 25 16:31:07 2013 +0300
+
+    The project was created. Good luck!
+
+commit 4529bf0fd869776a68bc897c653ef0aedf919263
+Author: Noam Ben-Pazi <noam1209@cs.huji.ac.il>
+Date:   Tue Jun 25 16:27:03 2013 +0300
+
+    fhsdukfhksdhfuk
+
+commit c8d66e5cfb09a4bf862562c0aef356c2829802cc
+Author: Asaf Vaknin <asaf11@cs.huji.ac.il>
+Date:   Tue Jun 25 16:21:11 2013 +0300
+
+    i commited
+
+commit fc270907a4b12d9e8728c6588684cecc7354c9dd
+Author: Rotem Mayo <rotemm11@cs.huji.ac.il>
+Date:   Tue Jun 25 16:13:56 2013 +0300
+
+    Rotem says hello
+
+commit 20c3ca5db62807790702894a2a16809cc1677b21
+Author: Mohannad Jamal <mohannadj11@cs.huji.ac.il>
+Date:   Tue Jun 25 16:06:42 2013 +0300
+
+    Demo with MJ
+
+commit 92647997224aa2d819fc3ba0d4e32d4a720fb59c
+Author: Marvin Arnold <marvinmarnold@gmail.com>
+Date:   Tue Jun 25 13:10:45 2013 +0300
+
+    Added class resources
+
+commit dc79b9b9691686e1e2984ebf118e3782b6442b1a
+Author: Marvin Arnold <marvinmarnold@gmail.com>
+Date:   Tue Jun 25 13:04:42 2013 +0300
+
+    Useful links + gitignore. First Commit

@@ -81,7 +81,7 @@ public class NewsActivity extends Activity {
 				//checking for pic
 					if(jo.has("picture")){
 				
-						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
+						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), null));
 				
 					}
 				
