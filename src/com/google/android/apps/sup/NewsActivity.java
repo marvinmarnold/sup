@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import com.facebook.*;
 import messeges.*;
@@ -18,6 +19,7 @@ public class NewsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.v("on creat news activity", null);
 		setContentView(R.layout.activity_news);
 		getFeed(GlobalInfo.session);
 	}
@@ -33,6 +35,10 @@ public class NewsActivity extends Activity {
 						ArrayList<JSONObject> JSONmessages = buildValsFromResponse(response);
 						sort(JSONmessages);
 						messeges = parse(JSONmessages);
+						
+						for(int i=0;i<messeges.size();i++){
+							System.out.println(messeges.get(i).getPosterName());
+						}
 
 					}
 
