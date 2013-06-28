@@ -23,13 +23,13 @@ import com.facebook.Session;
 public class NewsActivity extends Activity {
 
 	private ArrayList<Messege> messeges;
-	
+	private static final String TAG = "NewsActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.v("on creat news activity", null);
 		setContentView(R.layout.activity_news);
-		getFeed(GlobalInfo.session);
+//		getFeed(GlobalInfo.session);
+		Log.v(TAG, "Got to onCreate()");
 	}
 
 	//reutrns the final news feed
