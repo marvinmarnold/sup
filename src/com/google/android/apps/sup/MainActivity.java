@@ -2,7 +2,6 @@ package com.google.android.apps.sup;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +12,6 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.v("main activity start", null);
 	    super.onCreate(savedInstanceState);
 
 	    if (savedInstanceState == null) {
@@ -36,3 +34,5 @@ public class MainActivity extends FragmentActivity {
 	}
 
 }
+
+
