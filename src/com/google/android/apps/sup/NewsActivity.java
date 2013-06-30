@@ -51,10 +51,6 @@ public class NewsActivity extends Activity {
 							e.printStackTrace();
 						}
 						
-//						for(int i=0;i<messeges.size();i++){
-//					    	Log.i(TAG, messeges.get(0).getPosterName());
-
-//						}
 						
 					}
 
@@ -108,10 +104,6 @@ public class NewsActivity extends Activity {
 		for(int i=0; i<arr.size(); i++){
 			
 			jo = arr.get(i);
-			Log.i(TAG, jo.names().toString());
-			Log.i(TAG, jo.getJSONObject("from").getString("name"));
-			Log.i(TAG, getTextByJsonobject(jo));
-			Log.i(TAG, jo.getString("created_time"));
 			try {
 				
 				//checking for pic
