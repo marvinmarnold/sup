@@ -105,40 +105,54 @@ public class NewsActivity extends Activity {
 		ArrayList<Messege> mes = new ArrayList<Messege>();
 		JSONObject jo;
 		
-//		for(int i=0; i<arr.size(); i++){
+		for(int i=0; i<arr.size(); i++){
 			
-			jo = arr.get(0);
-			
+			jo = arr.get(i);
+			Log.i(TAG, jo.names().toString());
 			Log.i(TAG, jo.getJSONObject("from").getString("name"));
-//			try {
+			Log.i(TAG, getTextByJsonobject(jo));
+			Log.i(TAG, jo.getString("created_time"));
+			try {
 				
 				//checking for pic
-//					if(jo.has("picture")){
-//						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("picture")));
-//					}
-//				
-//			
-//					//checking for link
-//					else if(jo.has("link")){
-//						mes.add(new LinkMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("link")));
-//					}
-//			
-//					//default
-//					else{
-//						mes.add(new Messege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
-//					}
-//					
-//			} catch (JSONException e) {
-//				Log.i(TAG,"the JSON message dosen't exist! :(");
-//				e.printStackTrace();
-//			}
-//		}
+					if(jo.has("picture")){
+						mes.add(new PicMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo.getString("created_time"), jo.getString("picture")));
+					}
+				
+			
+					//checking for link
+					else if(jo.has("link")){
+						mes.add(new LinkMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo.getString("created_time"), jo.getString("link")));
+					}
+			
+					//default
+					else{
+						mes.add(new Messege(jo.getJSONObject("from").getString("name"), jo.getString("message"), jo.getString("created_time")));
+					}
+					
+			} catch (JSONException e) {
+				Log.i(TAG,"the JSON message dosen't exist! :(");
+				e.printStackTrace();
+			}
+		}
 		
 		return mes;
 	}
 	
 	public ArrayList<Messege> getMesseges(){
 		return messeges;
+	}
+	
+	public String getTextByJsonobject(JSONObject object) {
+		try{
+			return object.getString("message");
+		}catch (JSONException e){
+			try{
+				return object.getString("story");
+			} catch (JSONException E){
+				return "s";
+			}
+		}
 	}
 
 	@Override
