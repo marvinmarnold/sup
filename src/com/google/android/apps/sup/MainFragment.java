@@ -30,7 +30,7 @@ public class MainFragment extends Fragment {
 	    authButton.setFragment(this);
 	    authButton.setBackgroundResource(R.drawable.face);
 	    authButton.setReadPermissions(Arrays.asList("user_likes", "user_status", "read_stream"));
-
+	    
 	    return view;
 	}
 	
