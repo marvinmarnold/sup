@@ -2,13 +2,14 @@ package com.google.android.apps.sup;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 	private MainFragment mainFragment;
-	
+	ImageButton imageButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,22 @@ public class MainActivity extends FragmentActivity {
 	    }
 	}
 
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-
+	public void addListenerOnButton() {
+		 
+		imageButton = (ImageButton) findViewById(R.id.imageButton1);
+ 
+		imageButton.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+ 
+			   Toast.makeText(MainActivity.this,
+				"Google+ is still under development", Toast.LENGTH_SHORT).show();
+ 
+			}
+ 
+		});
+ 
 	}
-
+ 
 }
-
-
