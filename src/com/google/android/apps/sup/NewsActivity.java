@@ -44,21 +44,26 @@ public class NewsActivity extends Activity {
 					public void onCompleted(Response response) {
 						ArrayList<JSONObject> JSONmessages = buildValsFromResponse(response);
 						sort(JSONmessages);
-						messeges = parse(JSONmessages);
+						try {
+							messeges = parse(JSONmessages);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 //						for(int i=0;i<messeges.size();i++){
 //					    	Log.i(TAG, messeges.get(0).getPosterName());
 
 //						}
-						sanityCheck(messeges);
+						
 					}
 
 				});
 		request.executeAsync();
 	}
 	
-	public void sanityCheck(ArrayList<Messege> array){
-		Log.i(TAG, array.toString());
+	public void sanityCheck(JSONObject object){
+		Log.i(TAG, object.names().toString());
 	}
 	
 	//reutrns an array of JSON objects, each elemnt is a message
@@ -95,16 +100,17 @@ public class NewsActivity extends Activity {
 	}
 
 	//parses the final news feed array from JSON Objects into messages
-	public ArrayList<Messege> parse(ArrayList<JSONObject> arr){
+	public ArrayList<Messege> parse(ArrayList<JSONObject> arr) throws JSONException{
 		
 		ArrayList<Messege> mes = new ArrayList<Messege>();
 		JSONObject jo;
 		
-		for(int i=0; i<arr.size(); i++){
+//		for(int i=0; i<arr.size(); i++){
 			
-			jo = arr.get(i);
+			jo = arr.get(0);
 			
-			try {
+			Log.i(TAG, jo.getJSONObject("from").getString("name"));
+//			try {
 				
 				//checking for pic
 //					if(jo.has("picture")){
@@ -119,14 +125,14 @@ public class NewsActivity extends Activity {
 //			
 //					//default
 //					else{
-						mes.add(new Messege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
+//						mes.add(new Messege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
 //					}
-					
-			} catch (JSONException e) {
-				Log.i(TAG,"the JSON message dosen't exist! :(");
-				e.printStackTrace();
-			}
-		}
+//					
+//			} catch (JSONException e) {
+//				Log.i(TAG,"the JSON message dosen't exist! :(");
+//				e.printStackTrace();
+//			}
+//		}
 		
 		return mes;
 	}
