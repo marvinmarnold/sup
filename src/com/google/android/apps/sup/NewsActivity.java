@@ -28,9 +28,9 @@ public class NewsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-		if(GlobalInfo.session.isOpened()){
-			getFeed(GlobalInfo.session);
-		}
+//		if(GlobalInfo.session.isOpened()){
+//			getFeed(GlobalInfo.session);
+//		}
 		Log.v(TAG, "Got to onCreate()");
 	}
 
