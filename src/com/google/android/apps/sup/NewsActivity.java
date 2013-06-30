@@ -47,16 +47,20 @@ public class NewsActivity extends Activity {
 						messeges = parse(JSONmessages);
 						
 //						for(int i=0;i<messeges.size();i++){
-					    	Log.i(TAG, messeges.get(0).getPosterName());
+//					    	Log.i(TAG, messeges.get(0).getPosterName());
 
 //						}
-
+						sanityCheck(messeges);
 					}
 
 				});
 		request.executeAsync();
 	}
-
+	
+	public void sanityCheck(ArrayList<Messege> array){
+		Log.i(TAG, array.toString());
+	}
+	
 	//reutrns an array of JSON objects, each elemnt is a message
 	public ArrayList<JSONObject> buildValsFromResponse(Response response) {
 
@@ -103,28 +107,28 @@ public class NewsActivity extends Activity {
 			try {
 				
 				//checking for pic
-					if(jo.has("picture")){
-						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("picture")));
-					}
-				
-			
-					//checking for link
-					else if(jo.has("link")){
-						mes.add(new LinkMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("link")));
-					}
-			
-					//default
-					else{
+//					if(jo.has("picture")){
+//						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("picture")));
+//					}
+//				
+//			
+//					//checking for link
+//					else if(jo.has("link")){
+//						mes.add(new LinkMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("link")));
+//					}
+//			
+//					//default
+//					else{
 						mes.add(new Messege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
-					}
+//					}
 					
 			} catch (JSONException e) {
-				System.out.println("the JSON message dosen't exist! :(");
+				Log.i(TAG,"the JSON message dosen't exist! :(");
 				e.printStackTrace();
 			}
 		}
 		
-		return null;
+		return mes;
 	}
 	
 	public ArrayList<Messege> getMesseges(){
