@@ -28,7 +28,9 @@ public class NewsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-//		getFeed(GlobalInfo.session);
+		if(GlobalInfo.session.isOpened()){
+			getFeed(GlobalInfo.session);
+		}
 		Log.v(TAG, "Got to onCreate()");
 	}
 
@@ -44,9 +46,10 @@ public class NewsActivity extends Activity {
 						sort(JSONmessages);
 						messeges = parse(JSONmessages);
 						
-						for(int i=0;i<messeges.size();i++){
-							System.out.println(messeges.get(i).getPosterName());
-						}
+//						for(int i=0;i<messeges.size();i++){
+					    	Log.i(TAG, messeges.get(0).getPosterName());
+
+//						}
 
 					}
 
@@ -70,7 +73,7 @@ public class NewsActivity extends Activity {
 
 			}
 		} catch (JSONException e) {
-			System.out.println("no data key in response");
+	    	Log.i(TAG, "no response");
 			e.printStackTrace();
 		}
 

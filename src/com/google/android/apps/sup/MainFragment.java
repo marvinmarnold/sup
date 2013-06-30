@@ -1,5 +1,7 @@
-package com.google.android.apps.sup;
+	package com.google.android.apps.sup;
 
+
+import java.util.Arrays;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -27,7 +29,7 @@ public class MainFragment extends Fragment {
 	    LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
 	    authButton.setFragment(this);
 	    authButton.setBackgroundResource(R.drawable.face);
-	   // authButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
+	    authButton.setReadPermissions(Arrays.asList("user_likes", "user_status", "read_stream"));
 
 	    return view;
 	}
