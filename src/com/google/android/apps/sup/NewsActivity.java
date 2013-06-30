@@ -44,21 +44,26 @@ public class NewsActivity extends Activity {
 					public void onCompleted(Response response) {
 						ArrayList<JSONObject> JSONmessages = buildValsFromResponse(response);
 						sort(JSONmessages);
-						messeges = parse(JSONmessages);
+						try {
+							messeges = parse(JSONmessages);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 //						for(int i=0;i<messeges.size();i++){
 //					    	Log.i(TAG, messeges.get(0).getPosterName());
 
 //						}
-						sanityCheck(messeges);
+						
 					}
 
 				});
 		request.executeAsync();
 	}
 	
-	public void sanityCheck(ArrayList<Messege> array){
-		Log.i(TAG, array.toString());
+	public void sanityCheck(JSONObject object){
+		Log.i(TAG, object.names().toString());
 	}
 	
 	//reutrns an array of JSON objects, each elemnt is a message
@@ -95,7 +100,7 @@ public class NewsActivity extends Activity {
 	}
 
 	//parses the final news feed array from JSON Objects into messages
-	public ArrayList<Messege> parse(ArrayList<JSONObject> arr){
+	public ArrayList<Messege> parse(ArrayList<JSONObject> arr) throws JSONException{
 		
 		ArrayList<Messege> mes = new ArrayList<Messege>();
 		JSONObject jo;
@@ -103,24 +108,27 @@ public class NewsActivity extends Activity {
 		for(int i=0; i<arr.size(); i++){
 			
 			jo = arr.get(i);
-			
+			Log.i(TAG, jo.names().toString());
+			Log.i(TAG, jo.getJSONObject("from").getString("name"));
+			Log.i(TAG, getTextByJsonobject(jo));
+			Log.i(TAG, jo.getString("created_time"));
 			try {
 				
 				//checking for pic
-//					if(jo.has("picture")){
-//						mes.add(new PicMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("picture")));
-//					}
-//				
-//			
-//					//checking for link
-//					else if(jo.has("link")){
-//						mes.add(new LinkMessege(jo.getString("name"), jo.getString("message"), jo.getString("created_time"), jo.getString("link")));
-//					}
-//			
-//					//default
-//					else{
-						mes.add(new Messege(jo.getString("name"), jo.getString("message"), jo.getString("created_time")));
-//					}
+					if(jo.has("picture")){
+						mes.add(new PicMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo.getString("created_time"), jo.getString("picture")));
+					}
+				
+			
+					//checking for link
+					else if(jo.has("link")){
+						mes.add(new LinkMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo.getString("created_time"), jo.getString("link")));
+					}
+			
+					//default
+					else{
+						mes.add(new Messege(jo.getJSONObject("from").getString("name"), jo.getString("message"), jo.getString("created_time")));
+					}
 					
 			} catch (JSONException e) {
 				Log.i(TAG,"the JSON message dosen't exist! :(");
@@ -133,6 +141,18 @@ public class NewsActivity extends Activity {
 	
 	public ArrayList<Messege> getMesseges(){
 		return messeges;
+	}
+	
+	public String getTextByJsonobject(JSONObject object) {
+		try{
+			return object.getString("message");
+		}catch (JSONException e){
+			try{
+				return object.getString("story");
+			} catch (JSONException E){
+				return "s";
+			}
+		}
 	}
 
 	@Override
