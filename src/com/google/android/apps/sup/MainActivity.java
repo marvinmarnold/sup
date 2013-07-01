@@ -13,38 +13,22 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
 
-	    if (savedInstanceState == null) {
-	        // Add the fragment on initial activity setup
-	        mainFragment = new MainFragment();
-	        getSupportFragmentManager()
-	        .beginTransaction()
-	        .add(android.R.id.content, mainFragment)
-	        .commit();
-	    } else {
-	        // Or set the fragment from restored state info
-	        mainFragment = (MainFragment) getSupportFragmentManager()
-	        .findFragmentById(android.R.id.content);
-	    }
+		if (savedInstanceState == null) {
+			// Add the fragment on initial activity setup
+			mainFragment = new MainFragment();
+			getSupportFragmentManager().beginTransaction()
+					.add(android.R.id.content, mainFragment).commit();
+		} else {
+			// Or set the fragment from restored state info
+			mainFragment = (MainFragment) getSupportFragmentManager()
+					.findFragmentById(android.R.id.content);
+		}
 	}
 
-	public void addListenerOnButton() {
-		 
-		imageButton = (ImageButton) findViewById(R.id.imageButton1);
- 
-		imageButton.setOnClickListener(new OnClickListener() {
- 
-			@Override
-			public void onClick(View arg0) {
- 
-			   Toast.makeText(MainActivity.this,
-				"Google+ is still under development", Toast.LENGTH_SHORT).show();
- 
-			}
- 
-		});
- 
+	public void onClick(View arg0) {
+
 	}
- 
+
 }
