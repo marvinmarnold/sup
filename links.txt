@@ -19,3 +19,10 @@ MJ says hello
 Rotem is learning git
 asaf doesn't know git
 vyjhghgllguilghuighuigjhgujghuy
+
+Twitter
+https://github.com/itog/Twitter4j-android-Sample
+http://twitter4j.org/en/
+
+Sup wanna bes
+http://supmua.org/
