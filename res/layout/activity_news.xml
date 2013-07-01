@@ -4,7 +4,7 @@
     android:background="#4D9494"
     android:orientation="vertical" >
  <ListView
-        android:id="@+id/listViewAnimals"
+        android:id="@+id/listViewMessages"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:divider="#0000CC"

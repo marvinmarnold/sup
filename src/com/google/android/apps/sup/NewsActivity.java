@@ -14,14 +14,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 
-public class NewsActivity extends Activity {
 
+public class NewsActivity extends Activity {
+	
+	ArrayList<String> MessageList;
+	
 	private ArrayList<Messege> messeges;
 	private static final String TAG = "NewsActivity";
 	@Override
@@ -46,6 +54,18 @@ public class NewsActivity extends Activity {
 						sort(JSONmessages);
 						try {
 							messeges = parse(JSONmessages);
+							ListView messageListView = (ListView) findViewById(R.id.listViewMessages);
+							MessageList = new ArrayList<String>();
+							for(int i=0; i<messeges.size(); i++){
+								MessageList.add(messeges.get(i).getText());
+							}
+							
+					// Create The Adapter with passing ArrayList as 3rd parameter
+					ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(NewsActivity.this,
+								android.R.layout.simple_list_item_1, MessageList);
+			//		 Set The Adapter
+						messageListView.setAdapter(arrayAdapter);
+						
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -57,6 +77,31 @@ public class NewsActivity extends Activity {
 				});
 		request.executeAsync();
 	}
+	// argument position gives the index of item which is clicked
+				public void onItemClick(AdapterView<?> arg0, View v, int position,
+						long arg3) {
+
+				}
+
+
+		
+
+		void getAnimalNames() {
+			MessageList.add("DOG");
+			MessageList.add("CAT");
+			MessageList.add("HORSE");
+			MessageList.add("ELEPHANT");
+			MessageList.add("LION");
+			MessageList.add("COW");
+			MessageList.add("MONKEY");
+			MessageList.add("DEER");
+			MessageList.add("RABBIT");
+			MessageList.add("BEER");
+			MessageList.add("DONKEY");
+			MessageList.add("LAMB");
+			MessageList.add("GOAT");
+
+		}
 	
 	public void sanityCheck(JSONObject object){
 		Log.i(TAG, object.names().toString());
