@@ -1,6 +1,7 @@
 package com.google.android.apps.sup;
 
 import java.util.Arrays;
+import java.util.List;
 
 import twitter4j.DirectMessage;
 import twitter4j.Status;
@@ -20,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,6 +62,12 @@ public class MainActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
 
 		createFacebook(savedInstanceState);
 		createTwitter();
@@ -87,6 +95,7 @@ public class MainActivity extends FragmentActivity {
 					disconnectTwitter();
 				} else {
 					askOAuth();
+					buildTwitterFeed();
 				}
 			}
 
@@ -170,8 +179,15 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthAccessToken(oauthAccessToken)
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
 			twitter = new TwitterFactory(conf).getInstance();
-
+			buildTwitterFeed();
 		}
+	}
+	
+	//TODO
+	//Implement this method so that it creates an intent to a new activity that will 
+	//use the twitter object to get the timeline
+	private void buildTwitterFeed(){
+
 	}
 
 	private void askOAuth() {
