@@ -67,7 +67,9 @@ public class NewsActivity extends Activity {
 							inputSearch = (EditText) findViewById(R.id.inputSearch);
 							MessageList = new ArrayList<String>();
 							for (int i = 0; i < messeges.size(); i++) {
-								MessageList.add(messeges.get(i).getText());
+								MessageList.add(messeges.get(i).getText()
+										
+										);
 							}
 
 							// Create The Adapter with passing ArrayList as 3rd
@@ -122,6 +124,7 @@ public class NewsActivity extends Activity {
 
 	public void sanityCheck(JSONObject object) {
 		Log.i(TAG, object.names().toString());
+		Log.i(TAG, getTextByJsonobject(object));
 	}
 
 	// reutrns an array of JSON objects, each elemnt is a message
@@ -212,7 +215,7 @@ public class NewsActivity extends Activity {
 			try {
 				return object.getString("story");
 			} catch (JSONException E) {
-				return "s";
+				return "*Ad(Like us on facebook http://tinyurl.com/supfbad";
 			}
 		}
 	}
