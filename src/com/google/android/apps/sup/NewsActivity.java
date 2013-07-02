@@ -41,6 +41,7 @@ public class NewsActivity extends Activity {
 	private ArrayList<Messege> messeges;
 	private static final String TAG = "NewsActivity";
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,8 +69,8 @@ public class NewsActivity extends Activity {
 							MessageList = new ArrayList<String>();
 							for (int i = 0; i < messeges.size(); i++) {
 								MessageList.add(messeges.get(i).getText()
-										
-										);
+
+								);
 							}
 
 							// Create The Adapter with passing ArrayList as 3rd
@@ -215,7 +216,7 @@ public class NewsActivity extends Activity {
 			try {
 				return object.getString("story");
 			} catch (JSONException E) {
-				return "*Ad(Like us on facebook http://tinyurl.com/supfbad";
+				return "*Ad(Like us on facebook http://tinyurl.com/supfbad)";
 			}
 		}
 	}

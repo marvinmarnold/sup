@@ -35,7 +35,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="31dp"
             android:divider="#cccccc"
-            android:dividerHeight="2dp" >
+            android:dividerHeight="2dp" 
+            android:listSelector="@drawable/list_selector"
+            >
         </ListView>
 
     </RelativeLayout>

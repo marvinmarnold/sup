@@ -50,9 +50,8 @@
         android:layout_height="70dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignTop="@+id/twitterLoginButton"
+        android:scaleType="centerInside"
         fb:login_text=""
-        fb:logout_text=""
-        android:scaleType="centerInside" 
-        />
+        fb:logout_text="" />
 
 </RelativeLayout>
