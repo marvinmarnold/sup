@@ -142,6 +142,7 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onResume() {
+		Log.v(TWITTER_TAG, "onResume started");
 		super.onResume();
 
 		// FACEBOOK
@@ -168,6 +169,9 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthAccessToken(oauthAccessToken)
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
 			GlobalInfo.setTwitter(new TwitterFactory(conf).getInstance());
+			Intent nextScreen = new Intent(MainActivity.this,
+					TwitterNewsActivity.class);
+			startActivity(nextScreen);
 			buildTwitterFeed();
 		}
 	}
@@ -178,7 +182,10 @@ public class MainActivity extends FragmentActivity {
 	private void buildTwitterFeed(){
 	    try {
 			List<Status> statuses = GlobalInfo.getTwitter().getHomeTimeline();
-			Log.i(TWITTER_TAG, statuses.toString());
+			for(int i = 0; statuses.size()>i;i++){
+				Log.i(TWITTER_TAG, statuses.get(i).getText());
+			}
+			
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

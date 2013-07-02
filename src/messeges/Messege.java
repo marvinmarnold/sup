@@ -21,6 +21,8 @@ public class Messege {
 	public String getText() {
 		return text;
 	}
+	
+//	public Messeges
 
 	
 }
