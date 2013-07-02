@@ -1,7 +1,9 @@
 package com.google.android.apps.sup;
 
 import java.util.Arrays;
+import java.util.List;
 
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -38,7 +40,6 @@ public class MainActivity extends FragmentActivity {
 	private static final String TWITTER_TAG = "Twitter log";
 	private ImageButton twitterLoginButton;
 
-	private static Twitter twitter;
 	private static RequestToken requestToken;
 	private static SharedPreferences mSharedPreferences;
 
@@ -98,7 +99,7 @@ public class MainActivity extends FragmentActivity {
 			String verifier = uri
 					.getQueryParameter(GlobalInfo.TWITTER_IEXTRA_OAUTH_VERIFIER);
 			try {
-				AccessToken accessToken = twitter.getOAuthAccessToken(
+				AccessToken accessToken = GlobalInfo.getTwitter().getOAuthAccessToken(
 						requestToken, verifier);
 				Editor e = mSharedPreferences.edit();
 				e.putString(GlobalInfo.TWITTER_PREF_KEY_TOKEN,
@@ -166,7 +167,7 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthConsumerSecret(GlobalInfo.TWITTER_CONSUMER_SECRET)
 					.setOAuthAccessToken(oauthAccessToken)
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
-			twitter = new TwitterFactory(conf).getInstance();
+			GlobalInfo.setTwitter(new TwitterFactory(conf).getInstance());
 			buildTwitterFeed();
 		}
 	}
@@ -176,7 +177,7 @@ public class MainActivity extends FragmentActivity {
 	//use the twitter object to get the timeline
 	private void buildTwitterFeed(){
 	    try {
-			List<Status> statuses = twitter.getHomeTimeline();
+			List<Status> statuses = GlobalInfo.getTwitter().getHomeTimeline();
 			Log.i(TWITTER_TAG, statuses.toString());
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
@@ -189,10 +190,10 @@ public class MainActivity extends FragmentActivity {
 		configurationBuilder.setOAuthConsumerKey(GlobalInfo.TWITTER_CONSUMER_KEY);
 		configurationBuilder.setOAuthConsumerSecret(GlobalInfo.TWITTER_CONSUMER_SECRET);
 		Configuration configuration = configurationBuilder.build();
-		twitter = new TwitterFactory(configuration).getInstance();
+		GlobalInfo.setTwitter(new TwitterFactory(configuration).getInstance());
 
 		try {
-			requestToken = twitter.getOAuthRequestToken(GlobalInfo.TWITTER_CALLBACK_URL);
+			requestToken = GlobalInfo.getTwitter().getOAuthRequestToken(GlobalInfo.TWITTER_CALLBACK_URL);
 			Toast.makeText(this, "Please authorize this app!",
 					Toast.LENGTH_LONG).show();
 			this.startActivity(new Intent(Intent.ACTION_VIEW, Uri
