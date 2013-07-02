@@ -95,7 +95,6 @@ public class MainActivity extends FragmentActivity {
 					disconnectTwitter();
 				} else {
 					askOAuth();
-					buildTwitterFeed();
 				}
 			}
 
@@ -187,7 +186,13 @@ public class MainActivity extends FragmentActivity {
 	//Implement this method so that it creates an intent to a new activity that will 
 	//use the twitter object to get the timeline
 	private void buildTwitterFeed(){
-
+	    try {
+			List<Status> statuses = twitter.getHomeTimeline();
+			Log.i(TWITTER_TAG, statuses.toString());
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void askOAuth() {
