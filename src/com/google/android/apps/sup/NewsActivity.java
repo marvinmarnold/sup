@@ -29,15 +29,15 @@ import com.facebook.Session;
 
 public class NewsActivity extends Activity {
 	ListView messageListView;
-	
+
 	// Listview Adapter
 	ArrayAdapter<String> arrayAdapter;
-     
-    // Search EditText
-    EditText inputSearch;
-	
+
+	// Search EditText
+	EditText inputSearch;
+
 	ArrayList<String> MessageList;
-	
+
 	private ArrayList<Messege> messeges;
 	private static final String TAG = "NewsActivity";
 
@@ -51,7 +51,6 @@ public class NewsActivity extends Activity {
 		Log.v(TAG, "Got to onCreate()");
 	}
 
-	
 	// reutrns the final news feed
 	public void getFeed(Session session) {
 		Bundle params = new Bundle();
@@ -79,26 +78,32 @@ public class NewsActivity extends Activity {
 									MessageList);
 							// Set The Adapter
 							messageListView.setAdapter(arrayAdapter);
-							inputSearch.addTextChangedListener(new TextWatcher() {
-							     
-							    @Override
-							    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-							        // When user changed the Text
-							        NewsActivity.this.arrayAdapter.getFilter().filter(cs);  
-							    }
-							     
-							    @Override
-							    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-							            int arg3) {
-							        // TODO Auto-generated method stub
-							         
-							    }
-							     
-							    @Override
-							    public void afterTextChanged(Editable arg0) {
-							        // TODO Auto-generated method stub                         
-							    }
-							});	
+							inputSearch
+									.addTextChangedListener(new TextWatcher() {
+
+										@Override
+										public void onTextChanged(
+												CharSequence cs, int arg1,
+												int arg2, int arg3) {
+											// When user changed the Text
+											NewsActivity.this.arrayAdapter
+													.getFilter().filter(cs);
+										}
+
+										@Override
+										public void beforeTextChanged(
+												CharSequence arg0, int arg1,
+												int arg2, int arg3) {
+											// TODO Auto-generated method stub
+
+										}
+
+										@Override
+										public void afterTextChanged(
+												Editable arg0) {
+											// TODO Auto-generated method stub
+										}
+									});
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -109,7 +114,7 @@ public class NewsActivity extends Activity {
 				});
 		request.executeAsync();
 	}
-	
+
 	// argument position gives the index of item which is clicked
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 
@@ -163,6 +168,7 @@ public class NewsActivity extends Activity {
 
 			jo = arr.get(i);
 			sanityCheck(jo);
+			Log.i(TAG, "Got to the parsing");
 			try {
 
 				// checking for pic
@@ -210,12 +216,12 @@ public class NewsActivity extends Activity {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-		
+
 }
