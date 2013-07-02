@@ -19,7 +19,7 @@
          />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/google"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
@@ -29,11 +29,21 @@
         android:background="@drawable/google"
         android:clickable="true" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="WAZZZZZZZZZZAAAAAAAAAAAA"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40px" />
+
     <ImageButton
         android:id="@+id/twitterLoginButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_alignTop="@+id/imageButton1"
+        android:layout_alignTop="@+id/google"
         android:layout_centerHorizontal="true"
         android:background="@drawable/twitter" />
 
@@ -43,16 +53,7 @@
         android:layout_height="178dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
         android:src="@drawable/logo" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Choose one of the following buttons"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40px" />
 
 </RelativeLayout>
