@@ -5,19 +5,6 @@
     android:background="@drawable/wh"
     android:orientation="vertical" >
 
-    <com.facebook.widget.LoginButton
-        xmlns:fb="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fbLoginButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/twitter"
-        android:layout_marginLeft="48dp"
-        android:scaleType="centerInside"
-        fb:login_text=""
-        fb:logout_text=""
-         />
-
     <ImageButton
         android:id="@+id/google"
         android:layout_width="70dp"
@@ -55,5 +42,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="67dp"
         android:src="@drawable/logo" />
+
+    <com.facebook.widget.LoginButton
+        xmlns:fb="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fbLoginButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignTop="@+id/twitterLoginButton"
+        fb:login_text=""
+        fb:logout_text=""
+        android:scaleType="centerInside" 
+        />
 
 </RelativeLayout>

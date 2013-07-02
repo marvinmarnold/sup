@@ -1,48 +1,32 @@
 package com.google.android.apps.sup;
 
 import java.util.Arrays;
-import java.util.List;
 
-import twitter4j.DirectMessage;
-import twitter4j.Status;
-import twitter4j.StatusDeletionNotice;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.User;
-import twitter4j.UserList;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.LoginButton;
-
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 public class MainActivity extends FragmentActivity {
 
@@ -58,6 +42,10 @@ public class MainActivity extends FragmentActivity {
 	private static RequestToken requestToken;
 	private static SharedPreferences mSharedPreferences;
 
+	//Google vars
+	ImageButton google;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,6 +59,7 @@ public class MainActivity extends FragmentActivity {
 
 		createFacebook(savedInstanceState);
 		createTwitter();
+		addListenerOnButton();
 	}
 
 	private void createFacebook(Bundle savedInstanceState) {
@@ -235,6 +224,7 @@ public class MainActivity extends FragmentActivity {
 		fbUiHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
+	
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -251,6 +241,28 @@ public class MainActivity extends FragmentActivity {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		fbUiHelper.onSaveInstanceState(outState);
+		
 	}
+	public void addListenerOnButton() {
+		 
+		google = (ImageButton) findViewById(R.id.google);
+ 
+		google.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+				
+			   Toast.makeText(MainActivity.this,
+				"Coming soon.", Toast.LENGTH_SHORT).show();
+ 
+			}
+ 
+		});
+ 
+	}
+ 
+}	
 
-}
+
+
+
