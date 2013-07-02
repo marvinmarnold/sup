@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -20,6 +22,7 @@ import com.facebook.widget.LoginButton;
 public class MainFragment extends Fragment {
 	private UiLifecycleHelper uiHelper;
 	private static final String TAG = "MainFragment";
+	ImageButton googleButton;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, 
@@ -30,6 +33,15 @@ public class MainFragment extends Fragment {
 	    authButton.setFragment(this);
 	    authButton.setBackgroundResource(R.drawable.face);
 	    authButton.setReadPermissions(Arrays.asList("user_likes", "user_status", "read_stream"));
+	    
+	    googleButton = (ImageButton) view.findViewById(R.id.google);
+	    		
+     googleButton.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+           Toast.makeText(getActivity(), "Comming soon.....", (int) 0.5).show();
+        	 Log.i(TAG, "Gizzle...");
+         }
+      });
 	    
 	    return view;
 	}
