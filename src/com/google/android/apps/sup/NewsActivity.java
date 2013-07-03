@@ -1,6 +1,7 @@
 package com.google.android.apps.sup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
 
@@ -16,24 +17,34 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 public class NewsActivity extends Activity {
 	ListView messageListView;
+	private UiLifecycleHelper fbUiHelper;
 
 	// Listview Adapter
 	LazyAdapter arrayAdapter;
@@ -46,7 +57,6 @@ public class NewsActivity extends Activity {
 	private ArrayList<Messege> messeges = new ArrayList<Messege>();
 	private static final String TAG = "NewsActivity";
 
-	
 	static final String KEY_SONG = "song"; // parent node
 	static final String KEY_ID = "id";
 	static final String KEY_TITLE = "title";
@@ -58,58 +68,79 @@ public class NewsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-	}
-	
-	protected void onResume() {
-		Log.v(TAG,"resumed");
-		super.onResume();
-		messeges.clear();
-		if (/*!GlobalInfo.isGotFromFacebook()&&*/GlobalInfo.session!=null  &&GlobalInfo.session.isOpened()) {
-			/*GlobalInfo.setGotFromFacebook(true);*/
-			getFacebookFeed(GlobalInfo.session);
-		}
-		if (/*!GlobalInfo.isGotFromTwitter() &&*/MainActivity.isConnectedTwitter()) {
-			/*GlobalInfo.setGotFromTwitter(true);*/
-			buildTwitterFeed();
-			statussToMesseges(GlobalInfo.getStatuses());
-		}
+		LoginButton fbAuthButton = (LoginButton) findViewById(R.id.fbLoginButton);
+		fbAuthButton.setBackgroundResource(R.drawable.face);
+		fbAuthButton.setReadPermissions(Arrays.asList("user_likes",
+				"user_status", "read_stream"));
+
+		fbUiHelper = new UiLifecycleHelper(NewsActivity.this, callback);
+		fbUiHelper.onCreate(savedInstanceState);
 		
 	}
 
-	// reutrns the final news feed
+	protected void onResume() {
+		Log.v(TAG, "resumed");
+		super.onResume();
+		
+		Session session = Session.getActiveSession();
+		if (session != null && (session.isOpened() || session.isClosed())) {
+			onSessionStateChange(session, session.getState(), null);
+		}
+		fbUiHelper.onResume();
+		
+		Log.i(TAG, "passed super");
+		Log.i(TAG, (GlobalInfo.session == null) + " ");
+//		messeges.clear();
+		if (/*!GlobalInfo.isGotFromFacebook()&& */GlobalInfo.session != null
+				/*&& GlobalInfo.session.isOpened()*/) {
+			Log.i(TAG, "on resume entred the facebook thingy!!! YES!!!:) ");
+			 GlobalInfo.setGotFromFacebook(true); 
+			getFacebookFeed(GlobalInfo.session);
+		}
+		if ( !GlobalInfo.isGotFromTwitter() && MainActivity
+				.isConnectedTwitter()) {
+			 GlobalInfo.setGotFromTwitter(true); 
+			buildTwitterFeed();
+			statussToMesseges(GlobalInfo.getStatuses());
+		}
+
+	}
+
+	// returns the final news feed
 	public void getFacebookFeed(Session session) {
-		Log.i(TAG, "started getting feed from fb");
+		Log.i(TAG, "started getting feed from facebook");
 		Bundle params = new Bundle();
 		params.putString("limit", "0");
 
 		Request request = new Request(session, "me/home", params,
 				HttpMethod.GET, new Request.Callback() {
 					public void onCompleted(Response response) {
-						Log.i(TAG, "got response");
+						Log.i(TAG, "got FB response");
 						ArrayList<JSONObject> JSONmessages = buildValsFromResponse(response);
 						sort(JSONmessages);
+
 						try {
 							parseFacebook(JSONmessages);
-							getFeed();
-
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							Log.i(TAG, "parseFacebook() failed =\"");
 							e.printStackTrace();
 						}
+						
+						getFeed();
 
 					}
 
 				});
 		request.executeAsync();
 	}
-	
-	public void getFeed(){
+
+	public void getFeed() {
 		Log.i(TAG, "'getFeed()' started");
 		messageListView = (ListView) findViewById(R.id.listViewMessages);
 		inputSearch = (EditText) findViewById(R.id.inputSearch);
 		MessageList = new ArrayList<String>();
 		ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-		
+
 		for (int i = 0; i < messeges.size(); i++) {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put(KEY_ID, "ID");
@@ -117,44 +148,39 @@ public class NewsActivity extends Activity {
 			map.put(KEY_ARTIST, messeges.get(i).getText());
 			map.put(KEY_DURATION, messeges.get(i).getTime());
 			map.put(KEY_THUMB_URL, messeges.get(i).getProfilePicUrl());
-			Log.i(TAG, messeges.get(i).getProfilePicUrl());
+			//Log.i(TAG, messeges.get(i).getProfilePicUrl());
 			// adding HashList to ArrayList
 			songsList.add(map);
 		}
-		
-	
+
 		// Create The Adapter with passing ArrayList as 3rd
 		// parameter
-		arrayAdapter=new LazyAdapter(NewsActivity.this, songsList);        
+		arrayAdapter = new LazyAdapter(NewsActivity.this, songsList);
 		messageListView.setAdapter(arrayAdapter);
 
 		// Set The Adapter
-		inputSearch
-				.addTextChangedListener(new TextWatcher() {
+		inputSearch.addTextChangedListener(new TextWatcher() {
 
-					@Override
-					public void onTextChanged(
-							CharSequence cs, int arg1,
-							int arg2, int arg3) {
-						// When user changed the Text
-//						NewsActivity.this.arrayAdapter
-//								.getFilter().filter(cs);
-					}
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				// When user changed the Text
+				// NewsActivity.this.arrayAdapter
+				// .getFilter().filter(cs);
+			}
 
-					@Override
-					public void beforeTextChanged(
-							CharSequence arg0, int arg1,
-							int arg2, int arg3) {
-						// TODO Auto-generated method stub
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
 
-					}
+			}
 
-					@Override
-					public void afterTextChanged(
-							Editable arg0) {
-						// TODO Auto-generated method stub
-					}
-				});
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 
 	// argument position gives the index of item which is clicked
@@ -163,8 +189,8 @@ public class NewsActivity extends Activity {
 	}
 
 	public void sanityCheck(JSONObject object) {
-		Log.i(TAG, object.names().toString());
-		Log.i(TAG, getTextByJsonobject(object));
+		//Log.i(TAG, object.names().toString());
+		//Log.i(TAG, getTextByJsonobject(object));
 	}
 
 	// reutrns an array of JSON objects, each elemnt is a message
@@ -191,7 +217,7 @@ public class NewsActivity extends Activity {
 	}
 
 	// dells all irrelevent messages
-	public  ArrayList<JSONObject> sort(ArrayList<JSONObject> arr) {
+	public ArrayList<JSONObject> sort(ArrayList<JSONObject> arr) {
 
 		for (int i = 0; i < arr.size(); i++) {
 			// dell irelevent messages
@@ -205,35 +231,41 @@ public class NewsActivity extends Activity {
 
 		JSONObject jo;
 
-		for (int i = 0; i < arr.size(); i++) {
+		for (int i = 0; i < /*arr.size()*/5; i++) {
 
 			jo = arr.get(i);
 			sanityCheck(jo);
-			Log.i(TAG, "Got to the parsing");
+			//Log.i(TAG, jo.getString("id"));
 			try {
 
 				// checking for pic
 				if (jo.has("picture")) {
-					Log.i(TAG, "found a pic");
-					messeges.add(new PicMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("picture")));
+					messeges.add(new PicMessege(jo.getJSONObject("from")
+							.getString("name"), getTextByJsonobject(jo), jo
+							.getString("created_time"),
+							"https://graph.facebook.com/" + jo.getString("id")
+									+ "/picture?type=large", jo.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
-					Log.i(TAG, "found a link");
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("link")));
+							.getString("created_time"),
+							"https://graph.facebook.com/" + jo.getString("id")
+									+ "/picture?type=large", jo.getString("link")));
 				}
 
 				// default
 				else {
-					Log.i(TAG, "just a message");
 					messeges.add(new Messege(jo.getJSONObject("from")
 							.getString("name"), jo.getString("message"), jo
-							.getString("created_time"), "https://graph.facebook.com/"+jo.getString("id")+"/picture"));
+							.getString("created_time"),
+							"https://graph.facebook.com/" + jo.getString("id")
+									+ "/picture?type=large"));
 				}
+				
+				Log.i(TAG, "ADDED A MESSAGE!!!");
 
 			} catch (JSONException e) {
 				Log.i(TAG, "the JSON message dosen't exist! :(");
@@ -247,7 +279,7 @@ public class NewsActivity extends Activity {
 		return messeges;
 	}
 
-	public  String getTextByJsonobject(JSONObject object) {
+	public String getTextByJsonobject(JSONObject object) {
 		try {
 			return object.getString("message");
 		} catch (JSONException e) {
@@ -271,8 +303,10 @@ public class NewsActivity extends Activity {
 
 	public void statussToMesseges(List<Status> list) {
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < /*list.size()*/5; i++) {
 			messeges.add(statusToMessege(list.get(i)));
+			Log.i(TAG, "ADDED A MESSAGE!!!");
+
 		}
 		getFeed();
 
@@ -299,5 +333,38 @@ public class NewsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+
+
+private void onSessionStateChange(Session session, SessionState state,
+		Exception exception) {
+	if (state.isOpened()) {
+		try {
+			GlobalInfo.session = session;
+			Log.v(TAG, "session changed to " + (session==null));
+			Intent nextScreen = new Intent(NewsActivity.this,
+					NewsActivity.class);
+			startActivity(nextScreen);
+		} catch (ActivityNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	
+	} else if (state.isClosed()) {
+		
+	}
+}
+
+private Session.StatusCallback callback = new Session.StatusCallback() {
+	@Override
+	public void call(Session session, SessionState state,
+			Exception exception) {
+		onSessionStateChange(session, state, exception);
+	}
+};
+
+
+
+
 
 }

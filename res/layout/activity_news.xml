@@ -4,14 +4,14 @@
     android:background="#e5e5e5"
     android:orientation="vertical" >
 
-    <com.facebook.widget.LoginButton
-        xmlns:fb="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/authButton"
-        android:layout_width="146dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        fb:login_text=""
-        fb:logout_text="Logout!" />
+<!--     <com.facebook.widget.LoginButton -->
+<!--         xmlns:fb="http://schemas.android.com/apk/res-auto" -->
+<!--         android:id="@+id/authButton" -->
+<!--         android:layout_width="146dp" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_margin="5dp" -->
+<!--         fb:login_text="" -->
+<!--         fb:logout_text="Logout!" /> -->
 
     <EditText
         android:id="@+id/inputSearch"
