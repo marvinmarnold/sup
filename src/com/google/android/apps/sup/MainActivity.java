@@ -43,15 +43,14 @@ public class MainActivity extends FragmentActivity {
 	private static RequestToken requestToken;
 	private static SharedPreferences mSharedPreferences;
 
-	//Google vars
+	// Google vars
 	ImageButton google;
-	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 					.permitAll().build();
@@ -99,8 +98,8 @@ public class MainActivity extends FragmentActivity {
 			String verifier = uri
 					.getQueryParameter(GlobalInfo.TWITTER_IEXTRA_OAUTH_VERIFIER);
 			try {
-				AccessToken accessToken = GlobalInfo.getTwitter().getOAuthAccessToken(
-						requestToken, verifier);
+				AccessToken accessToken = GlobalInfo.getTwitter()
+						.getOAuthAccessToken(requestToken, verifier);
 				Editor e = mSharedPreferences.edit();
 				e.putString(GlobalInfo.TWITTER_PREF_KEY_TOKEN,
 						accessToken.getToken());
@@ -170,37 +169,28 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
 			GlobalInfo.setTwitter(new TwitterFactory(conf).getInstance());
 			Intent nextScreen = new Intent(MainActivity.this,
-					TwitterNewsActivity.class);
+					NewsActivity.class);
 			startActivity(nextScreen);
-			buildTwitterFeed();
-		}
-	}
-	
-	//TODO
-	//Implement this method so that it creates an intent to a new activity that will 
-	//use the twitter object to get the timeline
-	private void buildTwitterFeed(){
-	    try {
-			List<Status> statuses = GlobalInfo.getTwitter().getHomeTimeline();
-			for(int i = 0; statuses.size()>i;i++){
-				Log.i(TWITTER_TAG, statuses.get(i).getText());
-			}
-			
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
+	// TODO
+	// Implement this method so that it creates an intent to a new activity that
+	// will
+	// use the twitter object to get the timeline
+
 	private void askOAuth() {
 		ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-		configurationBuilder.setOAuthConsumerKey(GlobalInfo.TWITTER_CONSUMER_KEY);
-		configurationBuilder.setOAuthConsumerSecret(GlobalInfo.TWITTER_CONSUMER_SECRET);
+		configurationBuilder
+				.setOAuthConsumerKey(GlobalInfo.TWITTER_CONSUMER_KEY);
+		configurationBuilder
+				.setOAuthConsumerSecret(GlobalInfo.TWITTER_CONSUMER_SECRET);
 		Configuration configuration = configurationBuilder.build();
 		GlobalInfo.setTwitter(new TwitterFactory(configuration).getInstance());
 
 		try {
-			requestToken = GlobalInfo.getTwitter().getOAuthRequestToken(GlobalInfo.TWITTER_CALLBACK_URL);
+			requestToken = GlobalInfo.getTwitter().getOAuthRequestToken(
+					GlobalInfo.TWITTER_CALLBACK_URL);
 			Toast.makeText(this, "Please authorize this app!",
 					Toast.LENGTH_LONG).show();
 			this.startActivity(new Intent(Intent.ACTION_VIEW, Uri
@@ -215,7 +205,7 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @return
 	 */
-	private boolean isConnectedTwitter() {
+	public static boolean isConnectedTwitter() {
 		return mSharedPreferences.getString(GlobalInfo.TWITTER_PREF_KEY_TOKEN,
 				null) != null;
 	}
@@ -237,7 +227,6 @@ public class MainActivity extends FragmentActivity {
 		fbUiHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
-	
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -254,28 +243,25 @@ public class MainActivity extends FragmentActivity {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		fbUiHelper.onSaveInstanceState(outState);
-		
+
 	}
+
 	public void addListenerOnButton() {
-		 
+
 		google = (ImageButton) findViewById(R.id.google);
- 
+
 		google.setOnClickListener(new OnClickListener() {
- 
+
 			@Override
 			public void onClick(View arg0) {
-				
-			   Toast.makeText(MainActivity.this,
-				"Coming soon.", Toast.LENGTH_SHORT).show();
- 
+
+				Toast.makeText(MainActivity.this, "Coming soon.",
+						Toast.LENGTH_SHORT).show();
+
 			}
- 
+
 		});
- 
+
 	}
- 
-}	
 
-
-
-
+}

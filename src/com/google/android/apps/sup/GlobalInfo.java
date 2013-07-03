@@ -1,5 +1,8 @@
 package com.google.android.apps.sup;
 
+import java.util.List;
+
+import twitter4j.Status;
 import twitter4j.Twitter;
 
 import com.facebook.Session;
@@ -8,6 +11,7 @@ public class GlobalInfo {
 
 	public static Session session;
 	private static Twitter twitter;
+	private static List<Status> statuses;
 
 	static String TWITTER_CONSUMER_KEY = "XIKzBJCgmKKs0rVF9Sp7ow";
 	static String TWITTER_CONSUMER_SECRET = "v3Uv7BpxZJl7N7rQTxM1hmm4xH8DpQsc6Cs6WOiEy0";
@@ -33,4 +37,12 @@ public class GlobalInfo {
 	public static void setTwitter(Twitter twitter) {
 		GlobalInfo.twitter = twitter;
 	}
+	public static List<Status> getStatuses() {
+		return statuses;
+	}
+
+	public static void setStatuses(List<Status> statuses) {
+		GlobalInfo.statuses = statuses;
+	}
+
 }

@@ -6,12 +6,15 @@ public class Messege {
 	private String posterName;
 	private String text;
 	private String time;
+	private String profilePicUrl;
+	
 
-	public Messege(String posterName, String text, String time) {
+	public Messege(String posterName, String text, String time, String profilePicUrl) {
 		super();
 		this.posterName = posterName;
 		this.text = text;
 		this.time = time;
+		this.profilePicUrl = profilePicUrl;
 	}
 
 	public String getPosterName() {
@@ -21,8 +24,10 @@ public class Messege {
 	public String getText() {
 		return text;
 	}
-	
-//	public Messeges
 
+	public String getProfilePicUrl() {
+		return profilePicUrl;
+	}
+	
 	
 }

@@ -3,16 +3,16 @@ package messeges;
 public class PicMessege extends Messege{
 
 	//fields:
-	private String pic;
+	private String picUrl;
 	
-	public PicMessege(String posterName, String text, String time, String pic) {
-		super(posterName, text,time);
+	public PicMessege(String posterName, String text, String time, String profilePicUrl, String pic) {
+		super(posterName, text,time, profilePicUrl);
 		// TODO Auto-generated constructor stub
-		this.pic = pic;
+		this.picUrl = pic;
 	}
 
-	public String getPic() {
-		return pic;
+	public String getPicUrl() {
+		return picUrl;
 	}
 	
 
