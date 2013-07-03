@@ -22,14 +22,6 @@
         android:layout_height="50dip"
         android:background="@drawable/home" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/flower" />
-
       <ImageButton
           android:id="@+id/imageButton1"
           android:layout_width="50dip"
@@ -37,5 +29,23 @@
           android:layout_alignParentRight="true"
           android:layout_alignParentTop="true"
           android:background="@drawable/door2" />
+
+      <EditText
+          android:id="@+id/editText2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentRight="true"
+          android:layout_below="@+id/imageView1"
+          android:ems="10" />
+
+      <ImageView
+          android:id="@+id/imageView1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_centerHorizontal="true"
+          android:src="@drawable/flower" />
 
 </RelativeLayout>

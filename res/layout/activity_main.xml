@@ -5,38 +5,35 @@
     android:background="@drawable/wh"
     android:orientation="vertical" >
 
-    <ImageButton
-        android:layout_width="62dp"
-        android:layout_height="68dp"
-        android:layout_x="395dp"
-        android:layout_y="501dp"
-        android:background="@drawable/twitter" />
-
     <com.facebook.widget.LoginButton
         xmlns:fb="http://schemas.android.com/apk/res-auto"
         android:id="@+id/authButton"
-        android:layout_width="78dp"
-        android:layout_height="75dp"
-        android:layout_x="181dp"
-        android:layout_y="504dp" 
-        android:scaleType="centerInside"
-        fb:login_text=""
-        fb:logout_text=""
-        />
+        android:layout_width="113dp"
+        android:layout_height="116dp"
+        android:layout_x="79dp"
+        android:layout_y="655dp"
+        android:scaleType="centerInside" />
+
+    <ImageButton
+        android:layout_width="114dp"
+        android:layout_height="115dp"
+        android:layout_x="435dp"
+        android:layout_y="652dp"
+        android:background="@drawable/twitter" />
+
+    <ImageButton
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_x="249dp"
+        android:layout_y="658dp"
+        android:background="@drawable/google" />
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="180dp"
-        android:layout_height="178dp"
-        android:layout_x="222dp"
-        android:layout_y="212dp"
+        android:layout_width="336dp"
+        android:layout_height="314dp"
+        android:layout_x="153dp"
+        android:layout_y="123dp"
         android:src="@drawable/logo" />
-
-    <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="71dp"
-        android:layout_x="294dp"
-        android:layout_y="503dp"
-        android:background="@drawable/google" />
 
 </AbsoluteLayout>
