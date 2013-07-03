@@ -25,7 +25,13 @@ public class GlobalInfo {
 	static final String TWITTER_IEXTRA_AUTH_URL = "auth_url";
 	static final String TWITTER_IEXTRA_OAUTH_VERIFIER = "oauth_verifier";
 	static final String TWITTER_IEXTRA_OAUTH_TOKEN = "oauth_token";
-
+	
+	static final String KEY_SONG = "song"; // parent node
+	static final String KEY_ID = "id";
+	static final String KEY_TITLE = "title";
+	static final String KEY_ARTIST = "artist";
+	static final String KEY_DURATION = "duration";
+	static final String KEY_THUMB_URL = "thumb_url";
 	
 	
 	

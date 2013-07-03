@@ -47,12 +47,7 @@ public class NewsActivity extends Activity {
 	private static final String TAG = "NewsActivity";
 
 	
-	static final String KEY_SONG = "song"; // parent node
-	static final String KEY_ID = "id";
-	static final String KEY_TITLE = "title";
-	static final String KEY_ARTIST = "artist";
-	static final String KEY_DURATION = "duration";
-	static final String KEY_THUMB_URL = "thumb_url";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +102,11 @@ public class NewsActivity extends Activity {
 		
 		for (int i = 0; i < messeges.size(); i++) {
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put(KEY_ID, "ID");
-			map.put(KEY_TITLE, messeges.get(i).getPosterName());
-			map.put(KEY_ARTIST, messeges.get(i).getText());
-			map.put(KEY_DURATION, messeges.get(i).getTime());
-			map.put(KEY_THUMB_URL, messeges.get(i).getProfilePicUrl());
+			map.put(GlobalInfo.KEY_ID, "ID");
+			map.put(GlobalInfo.KEY_TITLE, messeges.get(i).getPosterName());
+			map.put(GlobalInfo.KEY_ARTIST, messeges.get(i).getText());
+			map.put(GlobalInfo.KEY_DURATION, messeges.get(i).getTime());
+			map.put(GlobalInfo.KEY_THUMB_URL, messeges.get(i).getProfilePicUrl());
 			Log.i(TAG, messeges.get(i).getProfilePicUrl());
 			// adding HashList to ArrayList
 			songsList.add(map);
@@ -132,8 +127,8 @@ public class NewsActivity extends Activity {
 							CharSequence cs, int arg1,
 							int arg2, int arg3) {
 						// When user changed the Text
-//						NewsActivity.this.arrayAdapter
-//								.getFilter().filter(cs);
+						NewsActivity.this.arrayAdapter
+								.getFilter().filter(cs);
 					}
 
 					@Override
@@ -154,7 +149,7 @@ public class NewsActivity extends Activity {
 
 	// argument position gives the index of item which is clicked
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-
+		// Search EditText
 	}
 
 	public void sanityCheck(JSONObject object) {
