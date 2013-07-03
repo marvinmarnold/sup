@@ -81,7 +81,7 @@ public class NewsActivity extends Activity {
 						sort(JSONmessages);
 						try {
 							parseFacebook(JSONmessages);
-							
+		
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -144,6 +144,7 @@ public class NewsActivity extends Activity {
 
 	public void sanityCheck(JSONObject object) {
 		Log.i(TAG, object.names().toString());
+		Log.i(TAG, getTextByJsonobject(object));
 	}
 
 	// reutrns an array of JSON objects, each elemnt is a message
@@ -230,7 +231,7 @@ public class NewsActivity extends Activity {
 			try {
 				return object.getString("story");
 			} catch (JSONException E) {
-				return "s";
+				return "*Ad(Like us on facebook http://tinyurl.com/supfbad";
 			}
 		}
 	}
