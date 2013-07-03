@@ -2,6 +2,7 @@ package com.google.android.apps.sup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import messeges.LinkMessege;
 import messeges.Messege;
@@ -35,7 +36,7 @@ public class NewsActivity extends Activity {
 	ListView messageListView;
 
 	// Listview Adapter
-	ArrayAdapter<String> arrayAdapter;
+	LazyAdapter arrayAdapter;
 
 	// Search EditText
 	EditText inputSearch;
@@ -44,18 +45,23 @@ public class NewsActivity extends Activity {
 
 	private ArrayList<Messege> messeges = new ArrayList<Messege>();
 	private static final String TAG = "NewsActivity";
-	int timesStartedOnCreate = 0;
+
+	
+	static final String KEY_SONG = "song"; // parent node
+	static final String KEY_ID = "id";
+	static final String KEY_TITLE = "title";
+	static final String KEY_ARTIST = "artist";
+	static final String KEY_DURATION = "duration";
+	static final String KEY_THUMB_URL = "thumb_url";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		timesStartedOnCreate++;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
-		
-		Log.v(TAG, ""+timesStartedOnCreate);
 	}
 	
 	protected void onResume() {
+		Log.v(TAG,"resumed");
 		super.onResume();
 		messeges.clear();
 		if (GlobalInfo.session != null && GlobalInfo.session.isOpened()) {
@@ -81,7 +87,7 @@ public class NewsActivity extends Activity {
 						sort(JSONmessages);
 						try {
 							parseFacebook(JSONmessages);
-		
+
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -97,18 +103,27 @@ public class NewsActivity extends Activity {
 		messageListView = (ListView) findViewById(R.id.listViewMessages);
 		inputSearch = (EditText) findViewById(R.id.inputSearch);
 		MessageList = new ArrayList<String>();
+		ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+		
 		for (int i = 0; i < messeges.size(); i++) {
-			MessageList.add(messeges.get(i).getText());
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put(KEY_ID, "ID");
+			map.put(KEY_TITLE, messeges.get(i).getPosterName());
+			map.put(KEY_ARTIST, messeges.get(i).getText());
+			map.put(KEY_DURATION, messeges.get(i).getTime());
+			map.put(KEY_THUMB_URL, messeges.get(i).getProfilePicUrl());
+			Log.i(TAG, messeges.get(i).getProfilePicUrl());
+			// adding HashList to ArrayList
+			songsList.add(map);
 		}
-
+		
+	
 		// Create The Adapter with passing ArrayList as 3rd
 		// parameter
-		arrayAdapter = new ArrayAdapter<String>(
-				NewsActivity.this,
-				android.R.layout.simple_list_item_1,
-				MessageList);
-		// Set The Adapter
+		arrayAdapter=new LazyAdapter(NewsActivity.this, songsList);        
 		messageListView.setAdapter(arrayAdapter);
+
+		// Set The Adapter
 		inputSearch
 				.addTextChangedListener(new TextWatcher() {
 
@@ -117,8 +132,8 @@ public class NewsActivity extends Activity {
 							CharSequence cs, int arg1,
 							int arg2, int arg3) {
 						// When user changed the Text
-						NewsActivity.this.arrayAdapter
-								.getFilter().filter(cs);
+//						NewsActivity.this.arrayAdapter
+//								.getFilter().filter(cs);
 					}
 
 					@Override

@@ -28,6 +28,12 @@ public class Messege {
 	public String getProfilePicUrl() {
 		return profilePicUrl;
 	}
+
+	public String getTime() {
+		return time;
+	}
+	
+	
 	
 	
 }
