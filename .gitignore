@@ -1,4 +1,3 @@
-libs/facebook-android.jar
 # built application files
 *.apk
 *.ap_
@@ -30,3 +29,5 @@ proguard/
 .idea/
 *~
 .metadata/
+project.properties
+.settings

@@ -6,5 +6,8 @@
     <string name="password"></string>
     <string name="user_name"></string>
     <string name="app_id">185711514922846</string>
+    <string name="search_hint">Search feed</string>
+    <string name="app_label">WAAAAAAZZZZAAAAAAAA</string>
+    
    
 </resources>
