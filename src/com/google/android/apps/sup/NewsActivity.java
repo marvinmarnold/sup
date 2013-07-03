@@ -64,29 +64,33 @@ public class NewsActivity extends Activity {
 		Log.v(TAG,"resumed");
 		super.onResume();
 		messeges.clear();
-		if (GlobalInfo.session != null && GlobalInfo.session.isOpened()) {
+		if (/*!GlobalInfo.isGotFromFacebook()&&*/GlobalInfo.session!=null  &&GlobalInfo.session.isOpened()) {
+			/*GlobalInfo.setGotFromFacebook(true);*/
 			getFacebookFeed(GlobalInfo.session);
 		}
-		if (MainActivity.isConnectedTwitter()) {
+		if (/*!GlobalInfo.isGotFromTwitter() &&*/MainActivity.isConnectedTwitter()) {
+			/*GlobalInfo.setGotFromTwitter(true);*/
 			buildTwitterFeed();
 			statussToMesseges(GlobalInfo.getStatuses());
 		}
-		getFeed();
 		
 	}
 
 	// reutrns the final news feed
 	public void getFacebookFeed(Session session) {
+		Log.i(TAG, "started getting feed from fb");
 		Bundle params = new Bundle();
 		params.putString("limit", "0");
 
 		Request request = new Request(session, "me/home", params,
 				HttpMethod.GET, new Request.Callback() {
 					public void onCompleted(Response response) {
+						Log.i(TAG, "got response");
 						ArrayList<JSONObject> JSONmessages = buildValsFromResponse(response);
 						sort(JSONmessages);
 						try {
 							parseFacebook(JSONmessages);
+							getFeed();
 
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -100,6 +104,7 @@ public class NewsActivity extends Activity {
 	}
 	
 	public void getFeed(){
+		Log.i(TAG, "'getFeed()' started");
 		messageListView = (ListView) findViewById(R.id.listViewMessages);
 		inputSearch = (EditText) findViewById(R.id.inputSearch);
 		MessageList = new ArrayList<String>();
@@ -209,12 +214,14 @@ public class NewsActivity extends Activity {
 
 				// checking for pic
 				if (jo.has("picture")) {
+					Log.i(TAG, "found a pic");
 					messeges.add(new PicMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo
 							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
+					Log.i(TAG, "found a link");
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
 							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("link")));
@@ -222,6 +229,7 @@ public class NewsActivity extends Activity {
 
 				// default
 				else {
+					Log.i(TAG, "just a message");
 					messeges.add(new Messege(jo.getJSONObject("from")
 							.getString("name"), jo.getString("message"), jo
 							.getString("created_time"), "https://graph.facebook.com/"+jo.getString("id")+"/picture"));
@@ -266,6 +274,7 @@ public class NewsActivity extends Activity {
 		for (int i = 0; i < list.size(); i++) {
 			messeges.add(statusToMessege(list.get(i)));
 		}
+		getFeed();
 
 	}
 
