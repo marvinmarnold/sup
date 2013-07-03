@@ -23,23 +23,23 @@ public class LazyAdapter extends BaseAdapter implements Filterable {
 	private Activity activity;
 	NewsActivity newsactivity;
 	private ArrayList<HashMap<String, String>> data;
-	private static LayoutInflater inflater = null;
+
 	public ImageLoader imageLoader;
+	ArrayList<HashMap<String, String>> filteredData;
 
 	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
-		data = d;
-		inflater = (LayoutInflater) activity
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		data = new ArrayList<HashMap<String, String>>(d);
+		filteredData = new ArrayList<HashMap<String, String>>(d);
 		imageLoader = new ImageLoader(activity.getApplicationContext());
 	}
 
 	public int getCount() {
-		return data.size();
+		return filteredData.size();
 	}
 
-	public Object getItem(int position) {
-		return position;
+	public Object getItem(int arg0) {
+		return arg0;
 	}
 
 	@Override
@@ -48,9 +48,11 @@ public class LazyAdapter extends BaseAdapter implements Filterable {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View vi = convertView;
-		if (convertView == null)
-			vi = inflater.inflate(R.layout.list_row, null);
+        View vi = convertView;
+        if (vi == null) {
+            LayoutInflater v = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            vi = v.inflate(R.layout.list_row, null);
+        }
 
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView artist = (TextView) vi.findViewById(R.id.artist); // artist
@@ -59,59 +61,71 @@ public class LazyAdapter extends BaseAdapter implements Filterable {
 		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // thumb
 																				// image
 		HashMap<String, String> song = new HashMap<String, String>();
-		song = data.get(position);
+		
+		song = filteredData.get(position);
 
-		// Setting all values in listview
-		title.setText(song.get(GlobalInfo.KEY_TITLE));
-		artist.setText(song.get(GlobalInfo.KEY_ARTIST));
-		duration.setText(song.get(GlobalInfo.KEY_DURATION));
-		imageLoader.DisplayImage(song.get(GlobalInfo.KEY_THUMB_URL),
-				thumb_image);
+		if (song != null) {
+			// Setting all values in listview
+			title.setText(song.get(GlobalInfo.KEY_TITLE));
+			artist.setText(song.get(GlobalInfo.KEY_ARTIST));
+			duration.setText(song.get(GlobalInfo.KEY_DURATION));
+			imageLoader.DisplayImage(song.get(GlobalInfo.KEY_THUMB_URL),
+					thumb_image);
+		}
 		return vi;
 	}
 
-	public android.widget.Filter getFilter() {
+	public Filter getFilter() {
 
-		return new android.widget.Filter() {
+		return new Filter() {
 
 			@SuppressWarnings("unchecked")
+			// @Override
+			// protected void publishResults(CharSequence constraint,
+			// FilterResults results) {
+			// // TODO Auto-generated method stub
+			// LazyAdapter.this.notifyDataSetChanged();
+			//
+			// }
 			@Override
-			protected void publishResults(CharSequence constraint,
-					FilterResults results) {
-				// TODO Auto-generated method stub
-				LazyAdapter.this.notifyDataSetChanged();
-
-			}
-
-			@Override
-			protected FilterResults performFiltering(CharSequence constraint) {
+			protected FilterResults performFiltering(CharSequence cs) {
 				FilterResults Result = new FilterResults();
+				String filterString = cs.toString().toLowerCase();
 				// if constraint is empty return the original names
-				if (constraint.length() == 0) {
+				if (cs == null || cs.length() == 0) {
 					Result.values = data;
 					Result.count = data.size();
-					return Result;
-				}
+				} else {
+					ArrayList<HashMap<String, String>> Filtered_Names = new ArrayList<HashMap<String, String>>();
 
-				ArrayList<HashMap<String, String>> Filtered_Names = new ArrayList<HashMap<String, String>>();
-				String filterString = constraint.toString().toLowerCase();
-				String filterableString;
-
-				for (int i = 0; i < data.size(); i++) {
-					filterableString = data.get(i).get(GlobalInfo.KEY_ARTIST);
-					if (filterableString.toLowerCase().contains(filterString)) {
-						Filtered_Names.add(data.get(i));
+					String filterableString;
+					for (int i = 0; i < data.size(); i++) {
+						filterableString = data.get(i).get(
+								GlobalInfo.KEY_ARTIST);
+						if (filterableString.toLowerCase().contains(
+								filterString)) {
+							Filtered_Names.add(data.get(i));
+						}
 						Log.i("LazyAdapter match", filterableString);
 						Log.i("LazyAdapter query", filterString);
 					}
+					Result.values = Filtered_Names;
+					Result.count = Filtered_Names.size();
 				}
-				Result.values = Filtered_Names;
-				Result.count = Filtered_Names.size();
 
 				return Result;
 			}
 
+			@Override
+			protected void publishResults(CharSequence charSequence,
+					FilterResults results) {
+				filteredData = (ArrayList<HashMap<String, String>>) results.values;
+			       if (results.count > 0) {
+			            notifyDataSetChanged();
+			        } else {
+			            notifyDataSetInvalidated();
+			        }
+			}
 		};
 	}
-
 }
