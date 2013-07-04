@@ -37,6 +37,10 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class NewsActivity extends Activity {
 	ListView messageListView;
 
@@ -117,10 +121,18 @@ public class NewsActivity extends Activity {
 			map.put(GlobalInfo.KEY_ID, "ID");
 			map.put(GlobalInfo.KEY_TITLE, messeges.get(i).getPosterName());
 			map.put(GlobalInfo.KEY_ARTIST, messeges.get(i).getText());
-			map.put(GlobalInfo.KEY_DURATION, messeges.get(i).getTime());
+			if(messeges.get(i).getSource()=="twitter"){
+				map.put(GlobalInfo.KEY_DURATION, twitterHumanFriendlyDate(messeges.get(i)
+					.getTime().toString()));
+			}else{
+				map.put(GlobalInfo.KEY_DURATION,facebookNotHumanFriendlyDate(messeges.get(i)
+						.getTime().toString()));
+			}
+			
 			map.put(GlobalInfo.KEY_THUMB_URL, messeges.get(i)
 					.getProfilePicUrl());
-			Log.i(TAG, messeges.get(i).getProfilePicUrl());
+			Log.i(TAG, twitterHumanFriendlyDate(messeges.get(i)
+					.getTime().toString()));
 			// adding HashList to ArrayList
 			songsList.add(map);
 		}
@@ -146,7 +158,6 @@ public class NewsActivity extends Activity {
 				// TODO Auto-generated method stub
 
 			}
-
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
@@ -218,18 +229,19 @@ public class NewsActivity extends Activity {
 							.getString("created_time"),
 							"http://graph.facebook.com/"
 									+ jo.getJSONObject("from").getString("id")
-									+ "/picture","facebook", jo.getString("picture")));
+									+ "/picture", "facebook", jo
+									.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"), 
+							.getString("created_time"),
 							"http://graph.facebook.com/"
 									+ jo.getJSONObject("from").getString("id")
-									+ "/picture","facebook", jo.getString("link")));
-
+									+ "/picture", "facebook", jo
+									.getString("link")));
 
 				}
 
@@ -239,9 +251,9 @@ public class NewsActivity extends Activity {
 							.getString("name"), jo.getString("message"), jo
 							.getString("created_time"),
 
-							"http://graph.facebook.com/"
-									+ jo.getJSONObject("from").getString("id")
-									+ "/picture","facebook"));
+					"http://graph.facebook.com/"
+							+ jo.getJSONObject("from").getString("id")
+							+ "/picture", "facebook"));
 				}
 
 				Log.i(TAG,
@@ -334,4 +346,129 @@ public class NewsActivity extends Activity {
 
 	}
 
+	public static String twitterHumanFriendlyDate(String dateStr) {
+		// parse Twitter date
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+		dateFormat.setLenient(false);
+		Date created = null;
+		try {
+			created = (Date) dateFormat.parse(dateStr);
+			// created=(Date) dateFormat.parse(dateStr, null);
+		} catch (Exception e) {
+			return "Something";
+		}
+
+		// today
+		Date today = new Date();
+
+		// how much time since (ms)
+		Long duration = today.getTime() - created.getTime();
+
+		int second = 1000;
+		int minute = second * 60;
+		int hour = minute * 60;
+		int day = hour * 24;
+
+		if (duration < second * 7) {
+			return "right now";
+		}
+
+		if (duration < minute) {
+			int n = (int) Math.floor(duration / second);
+			return n + " seconds ago";
+		}
+
+		if (duration < minute * 2) {
+			return "about 1 minute ago";
+		}
+
+		if (duration < hour) {
+			int n = (int) Math.floor(duration / minute);
+			return n + " minutes ago";
+		}
+
+		if (duration < hour * 2) {
+			return "about 1 hour ago";
+		}
+
+		if (duration < day) {
+			int n = (int) Math.floor(duration / hour);
+			return n + " hours ago";
+		}
+		if (duration > day && duration < day * 2) {
+			return "yesterday";
+		}
+
+		if (duration < day * 365) {
+			int n = (int) Math.floor(duration / day);
+			return n + " days ago";
+		} else {
+			return "over a year ago";
+		}
+	}
+
+public static String facebookNotHumanFriendlyDate(String dateStr) {
+	// parse Twitter date
+	SimpleDateFormat dateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
+	dateFormat.setLenient(false);
+	Date created = null;
+	try {
+		created = (Date) dateFormat.parse(dateStr);
+		// created=(Date) dateFormat.parse(dateStr, null);
+	} catch (Exception e) {
+		return "Something";
+	}
+
+	// today
+	Date today = new Date();
+
+	// how much time since (ms)
+	Long duration = today.getTime() - created.getTime();
+
+	int second = 1000;
+	int minute = second * 60;
+	int hour = minute * 60;
+	int day = hour * 24;
+
+	if (duration < second * 7) {
+		return "right now";
+	}
+
+	if (duration < minute) {
+		int n = (int) Math.floor(duration / second);
+		return n + " seconds ago";
+	}
+
+	if (duration < minute * 2) {
+		return "about 1 minute ago";
+	}
+
+	if (duration < hour) {
+		int n = (int) Math.floor(duration / minute);
+		return n + " minutes ago";
+	}
+
+	if (duration < hour * 2) {
+		return "about 1 hour ago";
+	}
+
+	if (duration < day) {
+		int n = (int) Math.floor(duration / hour);
+		return n + " hours ago";
+	}
+	if (duration > day && duration < day * 2) {
+		return "yesterday";
+	}
+
+	if (duration < day * 365) {
+		int n = (int) Math.floor(duration / day);
+		return n + " days ago";
+	} else {
+		return "over a year ago";
+	}
 }
+
+}
+
