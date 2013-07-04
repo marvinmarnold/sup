@@ -46,29 +46,28 @@ public class NewsActivity extends Activity {
 	private ArrayList<Messege> messeges = new ArrayList<Messege>();
 	private static final String TAG = "NewsActivity";
 
-	
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 	}
-	
+
 	protected void onResume() {
-		Log.v(TAG,"resumed");
+		Log.v(TAG, "resumed");
 		super.onResume();
 		messeges.clear();
-		if (/*!GlobalInfo.isGotFromFacebook()&&*/GlobalInfo.session!=null  &&GlobalInfo.session.isOpened()) {
-			/*GlobalInfo.setGotFromFacebook(true);*/
+		if (/* !GlobalInfo.isGotFromFacebook()&& */GlobalInfo.session != null
+				&& GlobalInfo.session.isOpened()) {
+			/* GlobalInfo.setGotFromFacebook(true); */
 			getFacebookFeed(GlobalInfo.session);
 		}
-		if (/*!GlobalInfo.isGotFromTwitter() &&*/MainActivity.isConnectedTwitter()) {
-			/*GlobalInfo.setGotFromTwitter(true);*/
+		if (/* !GlobalInfo.isGotFromTwitter() && */MainActivity
+				.isConnectedTwitter()) {
+			/* GlobalInfo.setGotFromTwitter(true); */
 			buildTwitterFeed();
 			statussToMesseges(GlobalInfo.getStatuses());
 		}
-		
+
 	}
 
 	// reutrns the final news feed
@@ -97,59 +96,54 @@ public class NewsActivity extends Activity {
 				});
 		request.executeAsync();
 	}
-	
-	public void getFeed(){
+
+	public void getFeed() {
 		Log.i(TAG, "'getFeed()' started");
 		messageListView = (ListView) findViewById(R.id.listViewMessages);
 		inputSearch = (EditText) findViewById(R.id.inputSearch);
 		MessageList = new ArrayList<String>();
 		ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-		
+
 		for (int i = 0; i < messeges.size(); i++) {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put(GlobalInfo.KEY_ID, "ID");
 			map.put(GlobalInfo.KEY_TITLE, messeges.get(i).getPosterName());
 			map.put(GlobalInfo.KEY_ARTIST, messeges.get(i).getText());
 			map.put(GlobalInfo.KEY_DURATION, messeges.get(i).getTime());
-			map.put(GlobalInfo.KEY_THUMB_URL, messeges.get(i).getProfilePicUrl());
+			map.put(GlobalInfo.KEY_THUMB_URL, messeges.get(i)
+					.getProfilePicUrl());
 			Log.i(TAG, messeges.get(i).getProfilePicUrl());
 			// adding HashList to ArrayList
 			songsList.add(map);
 		}
-		
-	
+
 		// Create The Adapter with passing ArrayList as 3rd
 		// parameter
-		arrayAdapter=new LazyAdapter(NewsActivity.this, songsList);        
+		arrayAdapter = new LazyAdapter(NewsActivity.this, songsList);
 		messageListView.setAdapter(arrayAdapter);
 
 		// Set The Adapter
-		inputSearch
-				.addTextChangedListener(new TextWatcher() {
+		inputSearch.addTextChangedListener(new TextWatcher() {
 
-					@Override
-					public void onTextChanged(
-							CharSequence cs, int arg1,
-							int arg2, int arg3) {
-						// When user changed the Text
-						NewsActivity.this.arrayAdapter
-								.getFilter().filter(cs);
-					}
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				// When user changed the Text
+				NewsActivity.this.arrayAdapter.getFilter().filter(cs);
+			}
 
-					@Override
-					public void beforeTextChanged(
-							CharSequence arg0, int arg1,
-							int arg2, int arg3) {
-						// TODO Auto-generated method stub
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
 
-					}
+			}
 
-					@Override
-					public void afterTextChanged(
-							Editable arg0) {
-						// TODO Auto-generated method stub
-					}
-				});
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 
 	// argument position gives the index of item which is clicked
@@ -186,7 +180,7 @@ public class NewsActivity extends Activity {
 	}
 
 	// dells all irrelevent messages
-	public  ArrayList<JSONObject> sort(ArrayList<JSONObject> arr) {
+	public ArrayList<JSONObject> sort(ArrayList<JSONObject> arr) {
 
 		for (int i = 0; i < arr.size(); i++) {
 			// dell irelevent messages
@@ -209,26 +203,39 @@ public class NewsActivity extends Activity {
 
 				// checking for pic
 				if (jo.has("picture")) {
-					Log.i(TAG, "found a pic");
-					messeges.add(new PicMessege(jo.getJSONObject("from").getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("picture")));
+					messeges.add(new PicMessege(jo.getJSONObject("from")
+							.getString("name"), getTextByJsonobject(jo), jo
+							.getString("created_time"), "facebook",
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture", jo.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
-					Log.i(TAG, "found a link");
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"),"https://graph.facebook.com/"+jo.getString("id")+"/picture", jo.getString("link")));
+							.getString("created_time"), "facebook",
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture", jo.getString("link")));
+
 				}
 
 				// default
 				else {
-					Log.i(TAG, "just a message");
 					messeges.add(new Messege(jo.getJSONObject("from")
 							.getString("name"), jo.getString("message"), jo
-							.getString("created_time"), "https://graph.facebook.com/"+jo.getString("id")+"/picture"));
+							.getString("created_time"), "facebook",
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture"));
 				}
+
+				Log.i(TAG,
+						"http://graph.facebook.com/"
+								+ jo.getJSONObject("from").getString("id")
+								+ "/picture");
 
 			} catch (JSONException e) {
 				Log.i(TAG, "the JSON message dosen't exist! :(");
@@ -242,7 +249,7 @@ public class NewsActivity extends Activity {
 		return messeges;
 	}
 
-	public  String getTextByJsonobject(JSONObject object) {
+	public String getTextByJsonobject(JSONObject object) {
 		try {
 			return object.getString("message");
 		} catch (JSONException e) {
@@ -279,12 +286,13 @@ public class NewsActivity extends Activity {
 		try {
 			posterName = status.getUser().getName();
 			profilePicUrl = status.getUser().getProfileImageURL();
+			Log.v(TAG, profilePicUrl);
 		} catch (Exception e) {
 
 		}
 
 		return new Messege(posterName, status.getText(), status.getCreatedAt()
-				.toString(), profilePicUrl);
+				.toString(), "twitter", profilePicUrl);
 
 	}
 
