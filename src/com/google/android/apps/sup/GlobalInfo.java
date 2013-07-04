@@ -12,6 +12,8 @@ public class GlobalInfo {
 	public static Session session;
 	private static Twitter twitter;
 	private static List<Status> statuses;
+	private static boolean gotFromFacebook = false;
+	private static boolean gotFromTwitter = false;
 
 	static String TWITTER_CONSUMER_KEY = "XIKzBJCgmKKs0rVF9Sp7ow";
 	static String TWITTER_CONSUMER_SECRET = "v3Uv7BpxZJl7N7rQTxM1hmm4xH8DpQsc6Cs6WOiEy0";
@@ -35,7 +37,20 @@ public class GlobalInfo {
 	
 	
 	
-	
+	public static void setGotFromFacebook(boolean gotFromFacebook) {
+		GlobalInfo.gotFromFacebook = gotFromFacebook;
+	}
+
+	public static void setGotFromTwitter(boolean gotFromTwitter) {
+		GlobalInfo.gotFromTwitter = gotFromTwitter;
+	}
+		public static boolean isGotFromFacebook() {
+		return gotFromFacebook;
+	}
+
+	public static boolean isGotFromTwitter() {
+		return gotFromTwitter;
+	}
 	public static Twitter getTwitter() {
 		return twitter;
 	}
