@@ -17,7 +17,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo2"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name="com.google.android.apps.sup.MainActivity"
             android:label="@string/app_name" >
@@ -45,7 +45,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-		<activity
+        <activity
             android:name="com.google.android.apps.sup.TwitterNewsActivity"
             android:label="Gonna remove this"
             android:windowSoftInputMode="stateHidden" >
@@ -53,7 +53,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />

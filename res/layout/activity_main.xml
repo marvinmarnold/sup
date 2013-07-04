@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Login into your account then click on the SUP logo!"
+       	android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="26px" />
 
@@ -51,10 +52,9 @@
         android:layout_height="70dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignTop="@+id/twitterLoginButton"
+        android:scaleType="centerInside"
         fb:login_text=""
-        fb:logout_text=""
-        android:scaleType="centerInside" 
-        />
+        fb:logout_text="" />
 
 </RelativeLayout>
 

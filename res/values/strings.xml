@@ -7,7 +7,10 @@
     <string name="user_name"></string>
     <string name="app_id">185711514922846</string>
     <string name="search_hint">Search feed</string>
-    <string name="app_label">WAAAAAAZZZZAAAAAAAA</string>
+    <string name="app_label">sup</string>
+    <string name="filter_sport">Sport</string>
+    <string name="filter_news">News</string>
+    <string name="filter_music">Music</string>
     
    
 </resources>

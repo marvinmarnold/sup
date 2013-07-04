@@ -15,18 +15,6 @@
         android:background="#ffffff"
         android:src="@drawable/flower" />
 
-    <ListView
-        android:id="@+id/listViewMessages"
-        android:layout_width="fill_parent"
-        android:layout_height="600dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/inputSearch"
-        android:divider="#cccccc"
-        android:dividerHeight="2dp"
-        android:listSelector="@drawable/list_selector" >
-    </ListView>
-
     <EditText
         android:id="@+id/inputSearch"
         android:layout_width="501dp"
@@ -37,5 +25,82 @@
         android:ems="10"
         android:hint="Search feed.."
         android:inputType="textVisiblePassword" />
+
+    <ListView
+        android:id="@+id/listViewMessages"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/inputSearch"
+        android:divider="#cccccc"
+        android:dividerHeight="2dp"
+        android:listSelector="@drawable/list_selector" >
+    </ListView>
+
+    <Button
+        android:id="@+id/musicFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/newsFilter"
+        android:layout_below="@+id/sportFilter"
+        android:layout_marginTop="31dp"
+        android:text="Music" />
+
+    <Button
+        android:id="@+id/sportFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/musicFilter"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="39dp"
+        android:text="Sport" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sportFilter"
+        android:layout_alignTop="@+id/listViewMessages"
+        android:layout_marginTop="48dp"
+        android:text="Filters"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/newFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/freindFilter"
+        android:layout_marginTop="33dp"
+        android:text="Add a filter" />
+
+    <Button
+        android:id="@+id/artFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/newsFilter"
+        android:layout_marginTop="33dp"
+        android:text="Art" />
+
+    <Button
+        android:id="@+id/freindFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/artFilter"
+        android:layout_marginTop="36dp"
+        android:text="Best Friends" />
+
+    <Button
+        android:id="@+id/newsFilter"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/musicFilter"
+        android:layout_marginTop="31dp"
+        android:text="News" />
 
 </RelativeLayout>
