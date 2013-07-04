@@ -5,12 +5,33 @@
     android:background="@drawable/wh"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/flower" />
+
+    <ListView
+        android:id="@+id/listViewMessages"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/inputSearch"
+        android:divider="#cccccc"
+        android:dividerHeight="2dp"
+        android:listSelector="@drawable/list_selector" >
+    </ListView>
+
     <EditText
         android:id="@+id/inputSearch"
         android:layout_width="501dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/authButton"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Search feed.."
         android:inputType="textVisiblePassword" >
@@ -18,38 +39,21 @@
         <requestFocus />
     </EditText>
 
-    <ListView
-        android:id="@+id/listViewMessages"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_alignLeft="@+id/authButton"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/inputSearch"
-        android:divider="#cccccc"
-        android:dividerHeight="2dp"
-        android:listSelector="@drawable/list_selector" >
-
-    </ListView>
-
-    <com.facebook.widget.LoginButton
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignRight="@+id/inputSearch"
+        android:layout_alignTop="@+id/imageView1"
+        android:background="@drawable/home"
+        android:clickable="true" />
+		    <com.facebook.widget.LoginButton
         xmlns:fb="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/authButton"
-        android:layout_width="49dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="21dp"
-                fb:login_text=""
-        fb:logout_text="" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/inputSearch"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/flower" />
-
+        android:id="@+id/fbLoginButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        fb:login_text=""
+        fb:logout_text=""
+        android:scaleType="centerInside" 
+        />
 </RelativeLayout>

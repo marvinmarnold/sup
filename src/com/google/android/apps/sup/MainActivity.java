@@ -118,9 +118,9 @@ public class MainActivity extends FragmentActivity {
 		if (state.isOpened()) {
 			try {
 				GlobalInfo.session = session;
-				Intent nextScreen = new Intent(MainActivity.this,
-						NewsActivity.class);
-				startActivity(nextScreen);
+//				Intent nextScreen = new Intent(MainActivity.this,
+//						NewsActivity.class);
+//				startActivity(nextScreen);
 			} catch (ActivityNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity {
 		Session session = Session.getActiveSession();
 		if (session != null && (session.isOpened() || session.isClosed())) {
 			onSessionStateChange(session, session.getState(), null);
-		}
+		}//			startActivity(nextScreen);
 		fbUiHelper.onResume();
 
 		// TWITTER
@@ -168,9 +168,9 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthAccessToken(oauthAccessToken)
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
 			GlobalInfo.setTwitter(new TwitterFactory(conf).getInstance());
-			Intent nextScreen = new Intent(MainActivity.this,
-					NewsActivity.class);
-			startActivity(nextScreen);
+//			Intent nextScreen = new Intent(MainActivity.this,
+//					NewsActivity.class);
+//			startActivity(nextScreen);
 		}
 	}
 
@@ -257,6 +257,9 @@ public class MainActivity extends FragmentActivity {
 
 				Toast.makeText(MainActivity.this, "Coming soon.",
 						Toast.LENGTH_SHORT).show();
+				Intent nextScreen = new Intent(MainActivity.this,
+						NewsActivity.class);
+				startActivity(nextScreen);
 
 			}
 
