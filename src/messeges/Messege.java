@@ -7,14 +7,20 @@ public class Messege {
 	private String text;
 	private String time;
 	private String profilePicUrl;
+	private String source;
 	
 
-	public Messege(String posterName, String text, String time, String profilePicUrl) {
+	public Messege(String posterName, String text, String time, String profilePicUrl, String source) {
 		super();
 		this.posterName = posterName;
 		this.text = text;
 		this.time = time;
 		this.profilePicUrl = profilePicUrl;
+		this.source = source;
+	}
+
+	public String getSource() {
+		return source;
 	}
 
 	public String getPosterName() {

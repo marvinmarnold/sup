@@ -146,6 +146,7 @@ public class NewsActivity extends Activity {
 
 			}
 
+
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				// TODO Auto-generated method stub
@@ -210,33 +211,42 @@ public class NewsActivity extends Activity {
 
 				// checking for pic
 				if (jo.has("picture")) {
-					Log.i(TAG, "found a pic");
+
 					messeges.add(new PicMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
 							.getString("created_time"),
-							"https://graph.facebook.com/" + jo.getString("id")
-									+ "/picture", jo.getString("picture")));
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture","facebook", jo.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
-					Log.i(TAG, "found a link");
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"),
-							"https://graph.facebook.com/" + jo.getString("id")
-									+ "/picture", jo.getString("link")));
+							.getString("created_time"), 
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture","facebook", jo.getString("link")));
+
+
 				}
 
 				// default
 				else {
-					Log.i(TAG, "just a message");
 					messeges.add(new Messege(jo.getJSONObject("from")
 							.getString("name"), jo.getString("message"), jo
 							.getString("created_time"),
-							"https://graph.facebook.com/" + jo.getString("id")
-									+ "/picture"));
+
+							"http://graph.facebook.com/"
+									+ jo.getJSONObject("from").getString("id")
+									+ "/picture","facebook"));
 				}
+
+				Log.i(TAG,
+						"http://graph.facebook.com/"
+								+ jo.getJSONObject("from").getString("id")
+								+ "/picture");
 
 			} catch (JSONException e) {
 				Log.i(TAG, "the JSON message dosen't exist! :(");
@@ -287,12 +297,13 @@ public class NewsActivity extends Activity {
 		try {
 			posterName = status.getUser().getName();
 			profilePicUrl = status.getUser().getProfileImageURL();
+			Log.v(TAG, profilePicUrl);
 		} catch (Exception e) {
 
 		}
 
 		return new Messege(posterName, status.getText(), status.getCreatedAt()
-				.toString(), profilePicUrl);
+				.toString(), profilePicUrl, "twitter");
 
 	}
 
