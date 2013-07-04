@@ -205,20 +205,20 @@ public class NewsActivity extends Activity {
 				if (jo.has("picture")) {
 					messeges.add(new PicMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"), "facebook",
+							.getString("created_time"),
 							"http://graph.facebook.com/"
 									+ jo.getJSONObject("from").getString("id")
-									+ "/picture", jo.getString("picture")));
+									+ "/picture","facebook", jo.getString("picture")));
 				}
 
 				// checking for link
 				else if (jo.has("link")) {
 					messeges.add(new LinkMessege(jo.getJSONObject("from")
 							.getString("name"), getTextByJsonobject(jo), jo
-							.getString("created_time"), "facebook",
+							.getString("created_time"), 
 							"http://graph.facebook.com/"
 									+ jo.getJSONObject("from").getString("id")
-									+ "/picture", jo.getString("link")));
+									+ "/picture","facebook", jo.getString("link")));
 
 				}
 
@@ -226,10 +226,10 @@ public class NewsActivity extends Activity {
 				else {
 					messeges.add(new Messege(jo.getJSONObject("from")
 							.getString("name"), jo.getString("message"), jo
-							.getString("created_time"), "facebook",
+							.getString("created_time"),
 							"http://graph.facebook.com/"
 									+ jo.getJSONObject("from").getString("id")
-									+ "/picture"));
+									+ "/picture","facebook"));
 				}
 
 				Log.i(TAG,
@@ -292,7 +292,7 @@ public class NewsActivity extends Activity {
 		}
 
 		return new Messege(posterName, status.getText(), status.getCreatedAt()
-				.toString(), "twitter", profilePicUrl);
+				.toString(), profilePicUrl, "twitter");
 
 	}
 
