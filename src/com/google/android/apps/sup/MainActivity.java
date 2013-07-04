@@ -141,6 +141,7 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onResume() {
+		Log.v(TWITTER_TAG, "onResume started");
 		super.onResume();
 
 		// FACEBOOK
@@ -254,7 +255,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 
-				Toast.makeText(MainActivity.this, "Coming soon...",
+				Toast.makeText(MainActivity.this, "Coming soon.",
 						Toast.LENGTH_SHORT).show();
 
 			}
