@@ -22,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="WAZZZZZZZZZZAAAAAAAAAAAA"
+        android:text="Login into your account then click on the SUP logo!"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40px" />
+        android:textSize="26px" />
 
     <ImageButton
         android:id="@+id/twitterLoginButton"
@@ -34,13 +34,14 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/twitter" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/sup"
         android:layout_width="180dp"
         android:layout_height="178dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="67dp"
+        android:background="#ffffff"
         android:src="@drawable/logo" />
 
     <com.facebook.widget.LoginButton

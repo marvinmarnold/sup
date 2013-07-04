@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
 
 	// Google vars
 	ImageButton google;
+	ImageButton sup;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,9 +119,9 @@ public class MainActivity extends FragmentActivity {
 		if (state.isOpened()) {
 			try {
 				GlobalInfo.session = session;
-//				Intent nextScreen = new Intent(MainActivity.this,
-//						NewsActivity.class);
-//				startActivity(nextScreen);
+				// Intent nextScreen = new Intent(MainActivity.this,
+				// NewsActivity.class);
+				// startActivity(nextScreen);
 			} catch (ActivityNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -151,7 +152,7 @@ public class MainActivity extends FragmentActivity {
 		Session session = Session.getActiveSession();
 		if (session != null && (session.isOpened() || session.isClosed())) {
 			onSessionStateChange(session, session.getState(), null);
-		}//			startActivity(nextScreen);
+		}// startActivity(nextScreen);
 		fbUiHelper.onResume();
 
 		// TWITTER
@@ -168,9 +169,9 @@ public class MainActivity extends FragmentActivity {
 					.setOAuthAccessToken(oauthAccessToken)
 					.setOAuthAccessTokenSecret(oAuthAccessTokenSecret).build();
 			GlobalInfo.setTwitter(new TwitterFactory(conf).getInstance());
-//			Intent nextScreen = new Intent(MainActivity.this,
-//					NewsActivity.class);
-//			startActivity(nextScreen);
+			// Intent nextScreen = new Intent(MainActivity.this,
+			// NewsActivity.class);
+			// startActivity(nextScreen);
 		}
 	}
 
@@ -249,6 +250,7 @@ public class MainActivity extends FragmentActivity {
 	public void addListenerOnButton() {
 
 		google = (ImageButton) findViewById(R.id.google);
+		sup = (ImageButton) findViewById(R.id.sup);
 
 		google.setOnClickListener(new OnClickListener() {
 
@@ -257,6 +259,17 @@ public class MainActivity extends FragmentActivity {
 
 				Toast.makeText(MainActivity.this, "Coming soon.",
 						Toast.LENGTH_SHORT).show();
+				// Intent nextScreen = new Intent(MainActivity.this,
+				// NewsActivity.class);
+				// startActivity(nextScreen);
+
+			}
+
+		});
+		sup.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
 				Intent nextScreen = new Intent(MainActivity.this,
 						NewsActivity.class);
 				startActivity(nextScreen);
